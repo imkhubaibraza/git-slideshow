@@ -1,5 +1,7 @@
 # Code versioning, an introduction with Git
 
+[![Build Status](https://travis-ci.org/SkypLabs/git-slideshow.svg)](https://travis-ci.org/SkypLabs/git-slideshow)
+
 This repository contains a slide show made with [Reveal.js][2] for introducing [Git][1] and the general notions of code versioning.
 
 ## License
