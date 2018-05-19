@@ -1,0 +1,15 @@
+{
+  "name": "git-slideshow",
+  "version": "1.0.1",
+  "description": "Code Versioning, an Introduction with Git",
+  "repository": "git@github.com:SkypLabs/git-slideshow.git",
+  "author": "Paul-Emmanuel Raoul <skyper@skyplabs.net>",
+  "license": "CC-BY-NC-4.0",
+  "private": true,
+  "dependencies": {
+    "reveal.js": "^3.6.0"
+  },
+  "scripts": {
+    "install": "for dir in css js lib plugin; do cp -r node_modules/reveal.js/${dir}/* ${dir}; done"
+  }
+}
