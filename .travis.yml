@@ -2,6 +2,15 @@ sudo: required
 
 language: ruby
 
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+
+addons:
+  apt:
+    packages:
+      - libcurl4-openssl-dev
+
 services:
   - docker
 
@@ -9,16 +18,12 @@ install: gem install html-proofer
 
 script: htmlproofer index.html
 
-env:
-  global:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
-
 before_deploy: docker run --rm -u $(id -u):$(id -g) -v $(pwd):/home astefanutti/decktape /home/index.html /home/Code_versioning_an_introduction_with_Git.pdf
 
 deploy:
   provider: releases
   api_key:
-    secure: hCappL20/leNOToyycv5gdpNVtIx6KR3RPU/pqyfXXopPS2a0fz3nH0HtzIzxc9YWAWg32shc0TSIpz/4n/bPLJrdHThrXAr+J7M7+QQqxKP65LdQmKyDoFO4cBFEL9coiCDrJrRbhsX7D8Woo1yVWwZ7DoAC21iN57EWRf0Igm1ygfMG+iGUB9/c4U8rhbr+XRF2Upk/J7wlD/GNLrABEqAnnD3XLbr4QLxcFUIQHtGnr4rPEMcefKSPuXRnxiPnlEdnlC/thwEjBHn59gxX1BlZEQABz6v3RON2hE9xzk1mqAhdOsmUUcfCxh5nSCiTSMutmY8TX7uAezpiMryg+pJecWCtStLzxUFwrPTKV7z3qPFDALUtLwWw7nW3ilX0y30U9GAlKSY9WcrOSBJ4aWpwM5Esipq9ktx4vZZqRGPC0FDrloTvewN8onwhNtcDi59uJGE0hUL4dhyMvZq5zHmbIkptn0668FChJFxRa0UtnU/pYMP+5f6CafWx4vYeZzWKA2k+976NQDX3B41ycu+0sJnChGqpvrb4Zr81ffIDaV1eju5BeidUCm2klPytS4Y8xgX7cCoJ0ke8DYFPeyWslVVaeZLwiNsSu2SfptD0HDAxC4vVvWbOAXsg4a0vF5pUwRjMEd5Iybm9Y3oNyRhvhR9p6pi/rSEM0ciH2Y=
+    secure: "HfYnWf5ngB4ei0ig1xj8AGF7zfS27cjJ+3Hj+stIYwBn4vAZjGRTHUeUdNpNzmG1CLjQmtAV2EMtyiim5EOQUmx3YIdqgmqHMiycb8e9zFvlUDzl9kmMSekGYOc1Hcq0juJhZhjpTJUZivMaiHyNY2Pf4ZIq8AVBh58a88rLrEaRfbj3RlciO9AiseZWx1ptQ/oVUVYUIvFW3bNQKNw+4bkMcD5VC7xcgaX6O4HdkKZVo/N0we1r29MA1iSY3SDLARsgnwHbR2DTJQ1HsBsDikpX7f9GFn9h927Ojb2bT4VrRpns6OeZQreHK/mxpBsjDpDjb+1GQDX+OzFynSCbof2DOFEXbjZMfhxLIhnMFcEedpsPMgDGtdQTur4dqX/LllsV5w66Ek7Q5AscPnatefgVufCjouE+NF6AugcfEAwrB8D46xs9zeIHGGzcxmiubKYoX/jC7riJHbqbvNOaOMJwhxW0MKGyMZ6/KXf2KCSlQrQI2qwkIr+D+RIuiqvGbg9Mj/vE2ryZotfz4S4Payb46QuDawwBjzqvb9VzpCRpwzGn+mOdokJ2xf9UpenVKLD6iLiXJsMi5TAevoAH+YJPFO9adipxz3iNc0pAEeqUGd0EB02fU5+XYBEslG2WmYzWdDphn/wdNcKS9ZDXFDOTe8MeWmT+CXEQStsuq58="
   file: Code_versioning_an_introduction_with_Git.pdf
   skip_cleanup: true
   overwrite: true
