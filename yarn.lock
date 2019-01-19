@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+gitgraph.js@^1.11.4:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/gitgraph.js/-/gitgraph.js-1.15.0.tgz#62f86ae7f82efe6a3adf4b8cbe4b49415af6ff1d"
+  integrity sha512-oewGYJBHkWNBg81ymrCXiD7Xwp2yQI67vEJthjTqzj0AGLOSuggAwB2sXOj2xAntga12H5zzLLFVu/nNzXD8ig==
+
 reveal.js@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/reveal.js/-/reveal.js-4.0.2.tgz#2e5e9f8ed0fa239924b448f21d4238c5aa6e852e"
