@@ -2,6 +2,6 @@
 # yarn lockfile v1
 
 
-reveal.js@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/reveal.js/-/reveal.js-4.0.1.tgz#0ef7f7a4e5707165bf784a57cec58171f6af3550"
+reveal.js@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/reveal.js/-/reveal.js-4.0.2.tgz#2e5e9f8ed0fa239924b448f21d4238c5aa6e852e"
