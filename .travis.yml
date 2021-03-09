@@ -1,5 +1,3 @@
-sudo: required
-
 language: ruby
 
 env:
@@ -16,17 +14,22 @@ services:
 
 install: gem install html-proofer
 
-script: htmlproofer index.html
+script: "htmlproofer --only-4xx --typhoeus-config '{\"headers\": {\"User-agent\": \"Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0\"}}' index.html"
 
 before_deploy: docker run --rm -u $(id -u):$(id -g) -v $(pwd):/home astefanutti/decktape /home/index.html /home/Code_versioning_an_introduction_with_Git.pdf
 
 deploy:
   provider: releases
   api_key:
-    secure: "HfYnWf5ngB4ei0ig1xj8AGF7zfS27cjJ+3Hj+stIYwBn4vAZjGRTHUeUdNpNzmG1CLjQmtAV2EMtyiim5EOQUmx3YIdqgmqHMiycb8e9zFvlUDzl9kmMSekGYOc1Hcq0juJhZhjpTJUZivMaiHyNY2Pf4ZIq8AVBh58a88rLrEaRfbj3RlciO9AiseZWx1ptQ/oVUVYUIvFW3bNQKNw+4bkMcD5VC7xcgaX6O4HdkKZVo/N0we1r29MA1iSY3SDLARsgnwHbR2DTJQ1HsBsDikpX7f9GFn9h927Ojb2bT4VrRpns6OeZQreHK/mxpBsjDpDjb+1GQDX+OzFynSCbof2DOFEXbjZMfhxLIhnMFcEedpsPMgDGtdQTur4dqX/LllsV5w66Ek7Q5AscPnatefgVufCjouE+NF6AugcfEAwrB8D46xs9zeIHGGzcxmiubKYoX/jC7riJHbqbvNOaOMJwhxW0MKGyMZ6/KXf2KCSlQrQI2qwkIr+D+RIuiqvGbg9Mj/vE2ryZotfz4S4Payb46QuDawwBjzqvb9VzpCRpwzGn+mOdokJ2xf9UpenVKLD6iLiXJsMi5TAevoAH+YJPFO9adipxz3iNc0pAEeqUGd0EB02fU5+XYBEslG2WmYzWdDphn/wdNcKS9ZDXFDOTe8MeWmT+CXEQStsuq58="
+    secure: "J3s4+xhMzEMYt8hohkmz97KVRCKSsr9bTQ/NWBdRO4v0l3zKxWooJ2yU3Vcksjp2HND8qeecp9nv0/dMXWRcU5NgEXqL9wvA7/fJsX3UfPXZ4piNlqZw65KouuLXDExspJ4IGuRBRrZPQO5+H1LqVEu3dCgWy+0SFF1Ikj/qZZbG5Lwh73Hga4h/GXpNPNix998VqINeL5f5eeEZypyDfp7JyfKxUI4aax0dm3njj6zLMRzFfnsNiB8cx3jHoFdyukOFQ8ZGPS5amhn9FAimquetBbJhp6qTyabgrvbFWltOhYKJxhZDB1Wn7sAhibB9O5YcwjkKltiT0XGsi0gd/HkMsHc9X+eba4maFhcBLuyxq5wntfzVM3BnKqefFuRQXNatu0+zu6FWyjr/FQjWuaVhS7PI5NxUtLwlhStJFVRNoGFJioU3dkLJ6m59poBKecEUZMxT3STapTWkm2hZnV/p7L7Reaf2ehPh5+jAM9LbBKwFIDhGuIgdEcynjsKqLDORW5U8qG20xlDyiY+W0WN542OL63FAr25tv8wjxhJh9+BKD7dODbmtCIUo4Bl2Z6mB6QTWnxtP69YNYpIld+1FPUsDrw8Sf+hiST3z5Apvn2tX/6qNDHz7pgXBHjnHE3MmfX4KwI3SJSDvEOoaOfKTN6sE1kEjPgLKsLUVqTs="
   file: Code_versioning_an_introduction_with_Git.pdf
+  cleanup: false
   skip_cleanup: true
   overwrite: true
   on:
     repo: SkypLabs/git-slideshow
     tags: true
+
+notifications:
+  email:
+    on_success: never
