@@ -1,380 +1,620 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8" />
 
-  <head>
-    <meta charset="utf-8">
+		<title>Code versioning with Git</title>
 
-    <title>Code versioning with Git</title>
+		<meta
+			name="description"
+			content="An introduction to code versioning with Git"
+		/>
+		<meta name="author" content="Paul-Emmanuel Raoul" />
 
-    <meta name="description" content="An introduction to code versioning with Git">
-    <meta name="author" content="Paul-Emmanuel Raoul">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link rel="stylesheet" href="dist/theme/moon.css" id="theme" />
+    
 
-    <link rel="stylesheet" href="dist/reset.css">
-    <link rel="stylesheet" href="dist/reveal.css">
-    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	</head>
 
-    <link rel="stylesheet" href="plugin/highlight/zenburn.css">
-  </head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
 
-  <body>
+			<div class="slides">
 
-    <div class="reveal">
+				<section>
+          <figure>
+            <img src="img/hello.gif" alt="Basic branching 6" style="width: 200px" />
+          </figure>
 
-      <!-- Any section element inside of this container is displayed as a slide -->
-      <div class="slides">
+					<h2>Code versioning</h2>
+					<h4>An introduction with Git</h4>
+					<figure>
+						<img
+							src="img/metric-white.png"
+							alt="Metric Logo"
+							style="width: 200px"
+						/>
+					</figure>
+
+				</section>
+
         <section>
-          <h1>Code versioning</h1>
-          <h3>An introduction with Git</h3>
-          <p>
-          <!-- <small>By <a href="http://blog.skyplabs.net">Paul-Emmanuel Raoul</a> / <a href="mailto:skyper@skyplabs.net">skyper@skyplabs.net</a> / <a href="https://twitter.com/SkypLabs">@SkypLabs</a></small> -->
-          </p>
-          <p style="margin-top: .5em">
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
-          </p>
+			<h3>Do you dread using Git?</h3>
+            <video data-autoplay src="img/git video.mp4"></video>
         </section>
 
-        <section>
-          <h2>What is version control?</h2>
-          <p class="fragment">System that records changes made to a set of files over time</p>
-          <p class="fragment">These systems are called VCS (Version Control Systems)</p>
-          <p class="fragment">They are essential to programming projects involving several people</p>
-        </section>
-
-        <section>
-          <h2>What can we do with that?</h2>
-          <p class="fragment">Keep every version of a file (source code, image...)</p>
-          <p class="fragment">Work easily with several programmers</p>
-          <p class="fragment">Revert files back to a previous state</p>
-          <p class="fragment">Compare changes over time</p>
-          <p class="fragment">And much more...</p>
-        </section>
-
+        
         <section>
           <section>
-            <h2>Different VCS architectures</h2>
-            <p>Local</p>
-            <p>Centralised</p>
-            <p>Distributed</p>
+            <h2>Why using version control?</h2>
+            <p class="fragment">Your program is working</p>
+            <p class="fragment">You change “just one thing” Your program breaks</p>
+            <p class="fragment">You change it back</p>
+            <p class="fragment">Your program is still broken--why?</p>
           </section>
 
           <section>
-            <h2>Local VCS</h2>
-            <p class="fragment">Simple local database</p>
-            <p class="fragment">No connectivity</p>
-            <p class="fragment">No collaboration</p>
-            <p class="fragment">Example: <a href="https://www.gnu.org/software/rcs/">RCS</a></p>
+            <h2>Why using version control?</h2>
+            <p class="fragment">Your program worked well enough yesterday</p>
+            <p class="fragment">You made a lot of improvements last night...</p>
+            <p class="fragment">...but you haven't gotten them to work yet</p>
+            <p class="fragment">You need to turn in your program now , How ?</p>
           </section>
-
+  
           <section>
-            <h2>Local VCS</h2>
-            <figure>
-              <img src="img/local.png" alt="Local VCS" style="width: 500px">
-              <figcaption style="font-style: italic; font-size: .5em">Local VCS - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
-
-          <section>
-            <h2>Centralised VCS</h2>
-            <p class="fragment">Made for dealing with the collaboration issue</p>
-            <p class="fragment">One single remote server</p>
-            <p class="fragment">Requires to know what other people are doing</p>
-            <p class="fragment">Examples: <a href="https://savannah.nongnu.org/projects/cvs">CVS</a>, <a href="https://subversion.apache.org/">Subversion</a></p>
-          </section>
-
-          <section>
-            <h2>Centralised VCS</h2>
-            <figure>
-              <img src="img/centralised.png" alt="Centralised VCS" style="width: 600px">
-              <figcaption style="font-style: italic; font-size: .5em">Centralised VCS - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
-
-          <section>
-            <h2>Distributed VCS</h2>
-            <p class="fragment">Full local copy of the remote repository</p>
-            <p class="fragment">Can deal with several remote repositories</p>
-            <p class="fragment">Several types of workflows</p>
-            <p class="fragment">Examples: <a href="http://www.git-scm.com">Git</a>, <a href="https://www.mercurial-scm.org/">Mercurial</a></p>
-          </section>
-
-          <section>
-            <h2>Distributed VCS</h2>
-            <figure>
-              <img src="img/distributed.png" alt="Distributed VCS" style="width: 400px">
-              <figcaption style="font-style: italic; font-size: .5em">Distributed VCS - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
+            <h2>Why using version control?</h2>
+            <p class="fragment">You change one part of a program--it works</p>
+            <p class="fragment">Your co-worker changes another part--it works</p>
+            <p class="fragment">You put them together--it doesn’t work</p>
+            <p class="fragment">Some change in one part must have broken something in the other part</p>
+            <p class="fragment">What were all the changes?</p>
           </section>
         </section>
-
         <section>
-          <h2>Why using Git?</h2>
-          <p class="fragment">It's fast</p>
-          <p class="fragment">Strong support of non-linear workflows</p>
-          <p class="fragment">Ables to handle large projects efficiently</p>
-          <p class="fragment">Most used VCS these days</p>
-          <p class="fragment">Free and open source</p>
+          <section >
+            <h2>What is version control?</h2>
+            <p class="fragment">
+              System that records changes made to a set of files over time
+            </p>
+            <p class="fragment">
+              These systems are called VCS (Version Control Systems)
+            </p>
+            <p class="fragment">
+              They are essential to programming projects involving several people
+            </p>
+          </section>
+
+          <section >
+            <h2>What is version control?</h2>
+            <p class="fragment">It's fast</p>
+            <p class="fragment">Strong support of non-linear workflows</p>
+            <p class="fragment">Ables to handle large projects efficiently</p>
+            <p class="fragment">Most used VCS these days</p>
+            <p class="fragment">Free and open source</p>
+          </section>
+
+          <section >
+            <h2>What is version control?</h2>
+            <p class="fragment">To be kind to yourself</p>
+            <p class="fragment">To be kind to your collaborators</p>
+            <p class="fragment">To ensure your work is reproducible</p>
+          </section>
+
         </section>
+
+				<section>
+					<h2>What can we do with that?</h2>
+					<p class="fragment">
+						Keep every version of a file (source code, image...)
+					</p>
+					<p class="fragment">Work easily with several programmers</p>
+					<p class="fragment">Revert files back to a previous state</p>
+					<p class="fragment">Compare changes over time</p>
+					<p class="fragment">And much more...</p>
+				</section>
 
         <section>
           <section>
-            <h2>Git basics</h2>
-            <p>To initialise a Git repository in an existing directory:</p>
-            <pre><code data-trim>
+            <h2>Popular Termonologies</h2>
+          </section>
+          <!-- <p class="fragment">Repository : A place that contains all your files of various different versions of your project</p> -->
+          <!-- <p class="fragment">Local Repository: This is the one on which we will make local changes</p> -->
+          <!-- <p class="fragment">Remote Repository: The centralized server or cloud storage (Github, Bitbucket, etc…)</p> -->
+          <section >
+            <h2>Repository</h2>
+          </section>
+          <section >
+            <h2>Local Repository</h2>
+          </section>
+          <section >
+            <h2>Remote Repository / Origin</h2>
+          </section>
+
+          <section >
+            <h2>Commit</h2>
+          </section>
+          <section >
+            <h2>Clone</h2>
+          </section>
+
+
+
+
+        </section>
+
+				<section>
+					<section>
+						<h2>Different VCS architectures</h2>
+						<p>Local</p>
+						<p>Centralised</p>
+						<p>Distributed</p>
+					</section>
+
+					<section>
+						<h2>Local VCS</h2>
+						<p class="fragment">Simple local database</p>
+						<p class="fragment">No connectivity</p>
+						<p class="fragment">No collaboration</p>
+						<p class="fragment">
+							Example: <a href="https://www.gnu.org/software/rcs/">RCS</a>
+						</p>
+					</section>
+
+					<section>
+						<h2>Local VCS</h2>
+						<figure>
+							<img src="img/local.png" alt="Local VCS" style="width: 500px" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Local VCS - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Centralised VCS</h2>
+						<p class="fragment">
+							Made for dealing with the collaboration issue
+						</p>
+						<p class="fragment">One single remote server</p>
+						<p class="fragment">Requires to know what other people are doing</p>
+						<p class="fragment">
+							Examples:
+							<a href="https://savannah.nongnu.org/projects/cvs">CVS</a>,
+							<a href="https://subversion.apache.org/">Subversion</a>
+						</p>
+					</section>
+
+					<section>
+						<h2>Centralised VCS</h2>
+						<figure>
+							<img
+								src="img/centralised.png"
+								alt="Centralised VCS"
+								style="width: 600px"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Centralised VCS - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Distributed VCS</h2>
+						<p class="fragment">Full local copy of the remote repository</p>
+						<p class="fragment">Can deal with several remote repositories</p>
+						<p class="fragment">Several types of workflows</p>
+						<p class="fragment">
+							Examples: <a href="http://www.git-scm.com">Git</a>,
+							<a href="https://www.mercurial-scm.org/">Mercurial</a>
+						</p>
+					</section>
+
+					<section>
+						<h2>Distributed VCS</h2>
+						<figure>
+							<img
+								src="img/distributed.png"
+								alt="Distributed VCS"
+								style="width: 400px"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Distributed VCS - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+				</section>
+
+      
+
+				<section>
+					<section>
+						<h2>Git basics</h2>
+						<p>To initialise a Git repository in an existing directory:</p>
+						<pre><code data-trim>
 git init
             </code></pre>
-            <p>And to create a new one:</p>
-            <pre><code data-trim>
+						<p>And to create a new one:</p>
+						<pre><code data-trim>
 git init my-project
             </code></pre>
-          </section>
+					</section>
 
-          <section>
-            <h2>Git basics</h2>
-            <p>If you want a copy of an existing Git repository:</p>
-            <pre><code data-trim>
+					<section>
+						<h2>Git basics</h2>
+						<p>If you want a copy of an existing Git repository:</p>
+						<pre><code data-trim>
 git clone git@github.com:docker/docker.git
             </code></pre>
-            <p>The above command line will clone the official repository of the <a href="https://www.docker.com/">Docker</a> project</p>
-          </section>
+						<p>
+							The above command line will clone the official repository of the
+							<a href="https://www.docker.com/">Docker</a> project
+						</p>
+					</section>
 
-          <section>
-            <h2>Git basics</h2>
-            <figure>
-              <img src="img/areas.png" alt="Areas">
-              <figcaption style="font-style: italic; font-size: .5em">Areas - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>Git basics</h2>
+						<figure>
+							<img src="img/areas.png" alt="Areas" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Areas - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>Git basics</h2>
-            <p>To track new files:</p>
-            <pre><code data-trim>
+					<section>
+						<h2>Git basics</h2>
+						<p>To track new files:</p>
+						<pre><code data-trim>
 git add *.c
 git add include/
 git add README.md
             </code></pre>
-            <p>These files are now in the staging area</p>
-          </section>
+						<p>These files are now in the staging area</p>
+					</section>
 
-          <section>
-            <h2>Git basics</h2>
-            <p>And now, your first commit:</p>
-            <pre><code data-trim>
+					<section>
+						<h2>Git basics</h2>
+						<p>And now, your first commit:</p>
+						<pre><code data-trim>
 git commit -m "first commit"
             </code></pre>
-          </section>
+					</section>
+
+					<section>
+						<h2>Git basics</h2>
+						<figure>
+							<img src="img/lifecycle.png" alt="Lifecycle" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Lifecycle - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Git branching</h2>
+						<p class="fragment">Git's "killer feature"</p>
+						<p class="fragment">Incredibly lightweight</p>
+						<p class="fragment">Designed to be used as often as possible</p>
+					</section>
+
+					
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-1.png" alt="Basic branching 1" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 1 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-2.png" alt="Basic branching 2" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 2 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-3.png" alt="Basic branching 3" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 3 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-4.png" alt="Basic branching 4" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 4 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-5.png" alt="Basic branching 5" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 5 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+
+					<section>
+						<h2>Basic branching</h2>
+						<figure>
+							<img src="img/basic-branching-6.png" alt="Basic branching 6" />
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Basic branching 6 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
           <section>
-            <h2>Git basics</h2>
-            <figure>
-              <img src="img/lifecycle.png" alt="Lifecycle">
-              <figcaption style="font-style: italic; font-size: .5em">Lifecycle - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>Git branching</h2>
-            <p class="fragment">Git's "killer feature"</p>
-            <p class="fragment">Incredibly lightweight</p>
-            <p class="fragment">Designed to be used as often as possible</p>
-          </section>
-
-          <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-1.png" alt="Basic branching 1">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 1 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+						<h2>Git branching Commands</h2>
+            <!-- List all branches in the project – git branch
+              ! Create a new branch – git branch <branchname>
+              ! Switch to a branch – git checkout <branchname>
+              ! Create and immediately switch – git checkout –b
+               <branchname>
+              ! Delete a branch – git branch –d <branchname>  -->
+						<p >List all branches in the project 
+              <pre><code data-trim> git branch </code></pre>
+            </p>
+						<p >Create a new branch 
+              <pre><code data-trim> git branch (branchname) </code></pre>
+            </p>
+						<p >Switch to a branch 
+              <pre><code data-trim> git checkout (branchname)</code></pre> 
+            </p>
+					</section>
 
           <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-2.png" alt="Basic branching 2">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 2 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+						<h2>Git branching Commands</h2>
+              <p >Create and immediately switch 
+                <pre><code data-trim> git checkout –b (branchname)</code></pre>
+              </p>
+              <p >Delete a branch d or D
+                <pre><code data-trim> git branch –d (branchname)</code></pre>
+              </p>
+					</section>
 
-          <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-3.png" alt="Basic branching 3">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 3 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>The rebase feature</h2>
+						<figure>
+							<img
+								src="img/interesting-rebase-1.png"
+								alt="Interesting rebase 1"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Interesting rebase 1 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-4.png" alt="Basic branching 4">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 4 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>The rebase feature</h2>
+						<figure>
+							<img
+								src="img/interesting-rebase-2.png"
+								alt="Interesting rebase 2"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Interesting rebase 2 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-5.png" alt="Basic branching 5">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 5 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>The rebase feature</h2>
+						<figure>
+							<img
+								src="img/interesting-rebase-3.png"
+								alt="Interesting rebase 3"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Interesting rebase 3 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>Basic branching</h2>
-            <figure>
-              <img src="img/basic-branching-6.png" alt="Basic branching 6">
-              <figcaption style="font-style: italic; font-size: .5em">Basic branching 6 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>The rebase feature</h2>
+						<figure>
+							<img
+								src="img/interesting-rebase-4.png"
+								alt="Interesting rebase 4"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Interesting rebase 4 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>The rebase feature</h2>
-            <figure>
-              <img src="img/interesting-rebase-1.png" alt="Interesting rebase 1">
-              <figcaption style="font-style: italic; font-size: .5em">Interesting rebase 1 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>The rebase feature</h2>
+						<figure>
+							<img
+								src="img/interesting-rebase-5.png"
+								alt="Interesting rebase 5"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Interesting rebase 5 - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+				</section>
 
-          <section>
-            <h2>The rebase feature</h2>
-            <figure>
-              <img src="img/interesting-rebase-2.png" alt="Interesting rebase 2">
-              <figcaption style="font-style: italic; font-size: .5em">Interesting rebase 2 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+				<section>
+					<section>
+						<h2>Git workflows</h2>
+            <img
+            src="img/gitworkflow.png"
+            alt="Centralised workflow"
+            />
+					</section>
 
-          <section>
-            <h2>The rebase feature</h2>
-            <figure>
-              <img src="img/interesting-rebase-3.png" alt="Interesting rebase 3">
-              <figcaption style="font-style: italic; font-size: .5em">Interesting rebase 3 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>Centralised</h2>
+						<figure>
+							<img
+								src="img/centralised_workflow.png"
+								alt="Centralised workflow"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Centralised workflow - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>The rebase feature</h2>
-            <figure>
-              <img src="img/interesting-rebase-4.png" alt="Interesting rebase 4">
-              <figcaption style="font-style: italic; font-size: .5em">Interesting rebase 4 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>Integration manager</h2>
+						<figure>
+							<img
+								src="img/integration-manager.png"
+								alt="Integration-manager workflow"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Integration-manager workflow - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
 
-          <section>
-            <h2>The rebase feature</h2>
-            <figure>
-              <img src="img/interesting-rebase-5.png" alt="Interesting rebase 5">
-              <figcaption style="font-style: italic; font-size: .5em">Interesting rebase 5 - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
-        </section>
+					<section>
+						<h2>Dictator and lieutenant</h2>
+						<figure>
+							<img
+								src="img/benevolent-dictator.png"
+								alt="Dictator and lieutenant workflow"
+							/>
+							<figcaption style="font-style: italic; font-size: 0.5em">
+								Dictator and lieutenant workflow - Reference:
+								<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+							</figcaption>
+						</figure>
+					</section>
+				</section>
 
-        <section>
-          <section>
-            <h2>Different workflows</h2>
-            <p>Centralised</p>
-            <p>Integration manager</p>
-            <p>Dictator and lieutenant</p>
-          </section>
+				<section>
+					<section>
+						<h2>Where to host your Git repositories?</h2>
+						<p>Public clouds</p>
+						<p>Self-hosted servers</p>
+					</section>
 
-          <section>
-            <h2>Centralised</h2>
-            <figure>
-              <img src="img/centralised_workflow.png" alt="Centralised workflow">
-              <figcaption style="font-style: italic; font-size: .5em">Centralised workflow - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>Public clouds</h2>
+						<p class="fragment">
+							Examples: <a href="https://github.com/">GitHub</a>,
+							<a href="https://bitbucket.org/">Bitbucked</a>
+						</p>
+						<p class="fragment">Git is not GitHub!</p>
+						<p class="fragment">Generally free for public repositories</p>
+					</section>
 
-          <section>
-            <h2>Integration manager</h2>
-            <figure>
-              <img src="img/integration-manager.png" alt="Integration-manager workflow">
-              <figcaption style="font-style: italic; font-size: .5em">Integration-manager workflow - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
+					<section>
+						<h2>Self-hosted servers</h2>
+						<p class="fragment">
+							Examples: <a href="https://about.gitlab.com/">GitLab</a>,
+							<a href="https://gogs.io/">Gogs</a>
+						</p>
+						<p class="fragment">Better choice if your work is confidential</p>
+					</section>
 
-          <section>
-            <h2>Dictator and lieutenant</h2>
-            <figure>
-              <img src="img/benevolent-dictator.png" alt="Dictator and lieutenant workflow">
-              <figcaption style="font-style: italic; font-size: .5em">Dictator and lieutenant workflow - Reference: <a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></figcaption>
-            </figure>
-          </section>
-        </section>
+					<section>
+						<h2>Common features</h2>
+						<p class="fragment">Manage privileges</p>
+						<p class="fragment">Pull requests / Merge requests</p>
+						<p class="fragment">Issues</p>
+						<p class="fragment">Wiki</p>
+						<p class="fragment">Webhooks</p>
+					</section>
+				</section>
 
-        <section>
-          <section>
-            <h2>Where to host your Git repositories?</h2>
-            <p>Public clouds</p>
-            <p>Self-hosted servers</p>
-          </section>
+				<section>
+					<h2>Want to know more about Git?</h2>
+					<p><a href="http://git-scm.com/docs">Official documentation</a></p>
+					<p>
+						<a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a>
+					</p>
+					<p>
+						<a
+							href="https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf"
+							>Cheat sheet</a
+						>
+					</p>
+					<p><a href="http://git-scm.com/videos">Videos</a></p>
+				</section>
+			</div>
+		</div>
 
-          <section>
-            <h2>Public clouds</h2>
-            <p class="fragment">Examples: <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">Bitbucked</a></p>
-            <p class="fragment">Git is not GitHub!</p>
-            <p class="fragment">Generally free for public repositories</p>
-          </section>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
 
-          <section>
-            <h2>Self-hosted servers</h2>
-            <p class="fragment">Examples: <a href="https://about.gitlab.com/">GitLab</a>, <a href="https://gogs.io/">Gogs</a></p>
-            <p class="fragment">Better choice if your work is confidential</p>
-          </section>
+		<script>
+			// Full list of configuration options available at:
+			// https://revealjs.com/config/
+			Reveal.initialize({
+				// Vertical centering of slides.
+				center: true,
 
-          <section>
-            <h2>Common features</h2>
-            <p class="fragment">Manage privileges</p>
-            <p class="fragment">Pull requests / Merge requests</p>
-            <p class="fragment">Issues</p>
-            <p class="fragment">Wiki</p>
-            <p class="fragment">Webhooks</p>
-          </section>
-        </section>
+        // video will play automatically
+        autoPlayMedia: true ,
+				// Display presentation control arrows.
+				controls: true,
 
-        <section>
-          <h2>Want to know more about Git?</h2>
-          <p><a href="http://git-scm.com/docs">Official documentation</a></p>
-          <p><a href="http://git-scm.com/book/en/v2">Pro Git, 2nd edition</a></p>
-          <p><a href="https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf">Cheat sheet</a></p>
-          <p><a href="http://git-scm.com/videos">Videos</a></p>
-        </section>
+				// Add the current slide number to the URL hash so that reloading the
+				// page/copying the URL will return you to the same slide.
+				hash: true,
 
-      </div>
+				// Display a presentation progress bar.
+				progress: true,
 
-    </div>
+				// Transition style: none/fade/slide/convex/concave/zoom.
+				transition: "slide",
 
-    <script src="dist/reveal.js"></script>
-    <script src="plugin/markdown/markdown.js"></script>
-    <script src="plugin/highlight/highlight.js"></script>
-
-    <script>
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-        // Vertical centering of slides.
-        center: true,
-
-        // Display presentation control arrows.
-        controls: true,
-
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide.
-        hash: true,
-
-        // Display a presentation progress bar.
-        progress: true,
-
-        // Transition style: none/fade/slide/convex/concave/zoom.
-        transition: 'slide',
-
-        // https://revealjs.com/plugins/
-        plugins: [ RevealMarkdown, RevealHighlight ]
-      });
-    </script>
-
-  </body>
+				// https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight],
+			});
+		</script>
+	</body>
 </html>
